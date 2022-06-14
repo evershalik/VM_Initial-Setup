@@ -41,6 +41,7 @@ kubeadm init --config config.yaml
 
 # install docker
 sudo apt-get install docker.io
+sudo apt-get install docker-compose
 
 # apt-mark hold is used so that these packages will not be updated/removed automatically
 sudo apt-mark hold kubelet kubeadm kubectl
@@ -53,7 +54,7 @@ chmod 700 get_helm.sh
 #install kind 
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 chmod +x ./kind
-mv ./kind /usr/local/bin/kind
+sudo mv ./kind /usr/local/bin/kind
 
 
 #install pip
