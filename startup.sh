@@ -1,3 +1,4 @@
+#! /bin/bash 
 # Get sudo working
 sudo -l 
 
@@ -20,6 +21,12 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+
+# install kubectl
+sudo curl -L "https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl" -o /usr/local/bin/kubectl
+sudo chmod +x /usr/local/bin/kubectl
+kubectl version --short --client
+
 
 # Create config file for kubeadm cluster
 cat <<EOF | sudo tee config.yaml
@@ -65,31 +72,31 @@ sudo apt-get install docker-compose
 # apt-mark hold is used so that these packages will not be updated/removed automatically
 sudo apt-mark hold kubelet kubeadm kubectl
 
-#install helm v3
+# install helm v3
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-#install kind 
+# install kind 
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 
 
-#install pip
+# install pip
 sudo apt update
 sudo apt install -y python3-pip
 
-#install minikube
+# install minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 sudo usermod -aG docker $USER && newgrp docker
 
-#install Docker Compose
+# install Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-#install Ansible
+# install Ansible
 sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
