@@ -90,7 +90,8 @@ pod:
 EOF
 fi
 
-
+kubectl create ns openstack
+kubectl create ns ceph
 
 helm upgrade --install ingress-kube-system ${HELM_CHART_ROOT_PATH}/ingress \
   --namespace=kube-system \
