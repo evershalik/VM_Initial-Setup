@@ -2,6 +2,10 @@
 
 sudo apt install git curl make
 
+git clone https://opendev.org/openstack/openstack-helm-infra.git
+git clone https://opendev.org/openstack/openstack-helm.git
+
+
 CURRENT_DIR="$(pwd)"
 : ${OSH_INFRA_PATH:="../openstack-helm-infra"}
 cd ${OSH_INFRA_PATH}
