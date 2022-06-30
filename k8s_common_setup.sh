@@ -64,7 +64,7 @@ kubectl label node kind-control-plane openstack-compute-node=enabled
 cd openstack-helm-infra/
 
 make -C ${HELM_CHART_ROOT_PATH} helm-toolkit
-
+ 
 make -C ${HELM_CHART_ROOT_PATH} ingress
 
 : ${OSH_EXTRA_HELM_ARGS:=""}
