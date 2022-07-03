@@ -1,5 +1,7 @@
 #! /bin/bash 
 # Get sudo working
+set -xe
+
 sudo -l 
 
 # update packages and their version
@@ -43,8 +45,6 @@ apiVersion: kubelet.config.k8s.io/v1beta1
 cgroupDriver: systemd
 EOF
 
-# initialize the cluster
-kubeadm init --config config.yaml
 
 # install docker
 # sudo apt-get install docker.io
@@ -67,7 +67,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 
 
-sudo apt-get install docker-compose
+yes | sudo apt-get install docker-compose
 
 # apt-mark hold is used so that these packages will not be updated/removed automatically
 sudo apt-mark hold kubelet kubeadm kubectl
@@ -87,11 +87,6 @@ sudo mv ./kind /usr/local/bin/kind
 sudo apt update
 sudo apt install -y python3-pip
 
-# install minikube
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-sudo usermod -aG docker $USER && newgrp docker
-
 # install Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -100,5 +95,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
+yes | sudo apt install ansible
+
+#install minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+sudo usermod -aG docker $USER && newgrp docker
 
