@@ -10,6 +10,6 @@ mkdir -p $HOME/.kube
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-kubectl taint nodes --all  node-role.kubernetes.io/master-
+sudo kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+sudo kubectl taint nodes --all  node-role.kubernetes.io/master-
 
